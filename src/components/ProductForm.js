@@ -8,9 +8,9 @@ function ProductForm() {
   const [metaTitle, setMetaTitle] = useState("");
   const [metaDescription, setMetaDescription] = useState("");
   const [price, setPrice] = useState("");
-  const [discountType, setDiscountType] = useState("fixed"); // fixed or percent
+  const [discountType, setDiscountType] = useState("fixed");
   const [discountValue, setDiscountValue] = useState(0);
-  const [status, setStatus] = useState("in_stock"); // in_stock, preorder, out_of_stock
+  const [status, setStatus] = useState("in_stock");
   const [specifications, setSpecifications] = useState([{ key: "", value: "" }]);
 
   const handleAddSpec = () => setSpecifications([...specifications, { key: "", value: "" }]);
@@ -22,7 +22,7 @@ function ProductForm() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const slug = title.toLowerCase().replace(/\s+/g, '-');
+    const slug = title.toLowerCase().trim().replace(/\s+/g, '-').replace(/[^\w\-]+/g, '');
     try {
       await addDoc(collection(db, "products"), {
         title,
@@ -39,7 +39,6 @@ function ProductForm() {
         createdAt: serverTimestamp()
       });
       alert("Product added!");
-      // Reset form
       setTitle(""); setDescription(""); setMetaTitle(""); setMetaDescription("");
       setPrice(""); setDiscountType("fixed"); setDiscountValue(0); setStatus("in_stock");
       setSpecifications([{ key: "", value: "" }]);
