@@ -1,3 +1,4 @@
+// firebaseConfig.js
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
 
@@ -13,3 +14,6 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 export const db = getFirestore(app);
+
+// claude.js (example)
+const CLAUDE_KEY = process.env.REACT_APP_CLAUDE_API_KEY;
